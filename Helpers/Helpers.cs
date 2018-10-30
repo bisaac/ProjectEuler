@@ -191,6 +191,5 @@ namespace ProjectEuler
 
             return list;
         }
-
     }
 }

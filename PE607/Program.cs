@@ -1,41 +1,106 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 
 namespace ProjectEuler
 {
     class Program
     {
+        private static int counter = 0;
+        private static double delta = 0.001;
+
+
         static void Main(string[] args)
         {
             double result = 200.0;
-            double marginError = 0.00000000005;
+            double marginError = 0.0000000000005;
 
             var routeList = new List<Route>();
-            for (var i = 0; i < 24; i++)
+            for (var i = 0; i < 128; i++)
             {
                 var route = new Route();
                 if (route.TravelTime < result) result = route.TravelTime;
-                Console.WriteLine("Route " + i + ": " + route.TravelTime);
+                // Console.WriteLine("Route " + i + ": " + route.TravelTime);
                 routeList.Add(route);
             }
 
-            var previousMinimum = 13.4738;
+            // var previousMinimum = 13.4738;
+            var previousMinimum = 200.00;
 
-            while (Math.Abs(result - previousMinimum) > marginError)
+            //while (Math.Abs(result - previousMinimum) >= marginError)
+            //while (true)
+            while (routeList.Max(r => r.TravelTime) - routeList.Min(r => r.TravelTime) >= marginError)
             {
-                previousMinimum = result;
+                    if (previousMinimum > result) previousMinimum = result;
 
                 // Create next generation
-                var parents = routeList.OrderBy(r => r.TravelTime).ToList();
-                result = parents.Min(p => p.TravelTime);
-
+                routeList = CreateNextGeneration(routeList);
+                result = routeList.Min(p => p.TravelTime);
+                Console.WriteLine(result);
             }
 
             Console.WriteLine("Answer: " + result);
             Console.ReadLine();
+        }
+
+        private static List<Route> CreateNextGeneration(List<Route> routeList)
+        {
+            var parents = routeList.OrderBy(r => r.TravelTime).ToList();
+            var children = new List<Route>();
+            var scale = (parents.Count * (parents.Count + 1)) / 2;
+            var rnd = new Random();
+
+            for (var i = 0; i < parents.Count; i++)
+            {
+                var parent1 = rnd.Next(scale) - parents.Count;
+                var parent2 = rnd.Next(scale) - parents.Count;
+
+                var parent1Index = 0;
+                var parent2Index = 0;
+
+                while (parent1 > 0)
+                {
+                    parent1Index++;
+                    parent1 -= parents.Count - parent1Index;
+                }
+
+                while (parent2 > 0)
+                {
+                    parent2Index++;
+                    parent2 -= parents.Count - parent2Index;
+                }
+
+                children.Add(Procreate(parents[parent1Index], parents[parent2Index], delta));
+            }
+
+            counter = (counter + 1) % 100000;
+            if (counter == 0) delta /= 100.0;
+
+            return children;
+        }
+
+        private static Route Procreate(Route route1, Route route2, double delta = 0.000000001)
+        {
+            var rnd = new Random();
+            var crossover = rnd.Next(7);
+            var mutation = rnd.Next(7);
+
+            var crossings = new double[6];
+            for (var i = 0; i < 6; i++)
+            {
+                crossings[i] = (i < crossover) ? route1.Crossing[i] : route2.Crossing[i];
+            }
+
+            if (mutation < 6)
+            {
+                crossings[mutation] += 2 * (rnd.NextDouble() - 0.5) * delta;
+            }
+
+            return new Route(crossings[0], crossings[1], crossings[2], crossings[3], crossings[4], crossings[5]);
         }
     }
 
