@@ -7,6 +7,11 @@ namespace ProjectEuler
 {
     public static class Helpers
     {
+        public static string GetDataFromFile(string fileName)
+        {
+            return System.IO.File.ReadAllText(fileName).Replace("\"", "");
+        }
+
         public static ArrayList GeneratePrimes(int toGenerate)
         {
             ArrayList primes = new ArrayList();
@@ -190,6 +195,37 @@ namespace ProjectEuler
                 list.Add(GetPrimeFactors(i, primeList));
 
             return list;
+        }
+
+        public static long ModularMultiplicativeInverse(long a, long mod)
+        {
+            long m0 = mod;
+            long y = 0;
+            long x = 1;
+
+            if (mod == 1) return 0;
+
+            while (a > 1)
+            {
+                // q is quotient
+                long q = a / mod;
+                long t = mod;
+
+                // m is remainder now; process same as Euclid's algorithm
+                mod = a % mod;
+                a = t;
+                t = y;
+
+                // Update y and x
+                y = x - q * y;
+                x = t;
+            }
+
+            // Make x positive
+            if (x < 0)
+                x += m0;
+
+            return x;
         }
     }
 }
