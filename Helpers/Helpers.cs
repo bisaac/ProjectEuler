@@ -148,6 +148,58 @@ namespace ProjectEuler
 
             return list;
         }
+
+        public static List<long>[] GetPrimeFactorLists(long topNumber, BitArray primeList)
+        {
+            // Does not include 1
+
+            var listArray = new List<long>[topNumber + 1];
+            for (long i = 0; i <= topNumber; i++)
+                listArray[i] = new List<long>();
+
+            for (int i = 0; i <= topNumber; i++)
+            {
+                if (!primeList[i]) continue;
+
+                long step = i;
+                while (step <= topNumber)
+                {
+                    for (long j = step; j <= topNumber; j += step)
+                    {
+                        listArray[j].Add((long)i);
+                    }
+
+                    step *= i;
+                }
+            }
+
+            return listArray;
+        }
+
+        public static long[] GetLargestPrimeFactors(long topNumber)
+        {
+            var largestPrime = new long[topNumber + 1];
+            largestPrime[0] = 0;
+            largestPrime[1] = 0;
+
+            for (var i = 2; i <= topNumber; i++)
+            {
+                if (largestPrime[i] > 0) continue;
+
+                for (var j = i; j <= topNumber; j += i)
+                    largestPrime[j] = i;
+
+                var k = i * i;
+                while (k <= topNumber)
+                {
+                    largestPrime[k] = k;
+                    k *= i;
+                }
+            }
+
+            return largestPrime;
+        }
+
         public static List<PrimeFactor> GetPoweredPrimeFactors(int topNumber, BitArray primeList)
         {
             // Does not include 1
