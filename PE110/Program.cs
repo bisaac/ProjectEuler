@@ -9,7 +9,7 @@ namespace ProjectEuler
         {
             BigInteger result = 1;
 
-            var primes = Helpers.GenerateIntPrimesBySieve(10000);
+            var primes = Helpers.GenerateIntPrimesBySieve(80000000);
 
             var numberToExceed = 4000000;
             var workingValue = Convert.ToInt32(Math.Pow(Math.Ceiling(Math.Sqrt(numberToExceed * 2 - 1)), 2));
