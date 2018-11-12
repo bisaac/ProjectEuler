@@ -6,12 +6,12 @@ namespace ProjectEuler
 {
     class Program
     {
-        private static int onTime = 0;
-        private static int absence = 1;
-        private static int twoAbsence = 2;
-        private static int late = 3;
-        private static int lateAbsence = 4;
-        private static int lateTwoAbsence = 5;
+        private const int OnTime = 0;
+        private const int Absence = 1;
+        private const int TwoAbsence = 2;
+        private const int Late = 3;
+        private const int LateAbsence = 4;
+        private const int LateTwoAbsence = 5;
 
         static void Main(string[] args)
         {
@@ -19,7 +19,7 @@ namespace ProjectEuler
             long result = 0;
 
             var typeCount = new int[6];
-            typeCount[onTime] = 1;
+            typeCount[OnTime] = 1;
 
             var days = 30;
 
@@ -38,12 +38,12 @@ namespace ProjectEuler
         {
             var newTypeCount = new int[6];
 
-            newTypeCount[onTime] = typeCount[onTime] + typeCount[absence] + typeCount[twoAbsence];
-            newTypeCount[absence] = typeCount[onTime];
-            newTypeCount[twoAbsence] = typeCount[absence];
-            newTypeCount[late] = typeCount[onTime] + typeCount[absence] + typeCount[twoAbsence] + typeCount[late] + typeCount[lateAbsence] + typeCount[lateTwoAbsence];
-            newTypeCount[lateAbsence] = typeCount[late];
-            newTypeCount[lateTwoAbsence] = typeCount[lateAbsence];
+            newTypeCount[OnTime] = typeCount[OnTime] + typeCount[Absence] + typeCount[TwoAbsence];
+            newTypeCount[Absence] = typeCount[OnTime];
+            newTypeCount[TwoAbsence] = typeCount[Absence];
+            newTypeCount[Late] = typeCount[OnTime] + typeCount[Absence] + typeCount[TwoAbsence] + typeCount[Late] + typeCount[LateAbsence] + typeCount[LateTwoAbsence];
+            newTypeCount[LateAbsence] = typeCount[Late];
+            newTypeCount[LateTwoAbsence] = typeCount[LateAbsence];
 
             return newTypeCount;
         }
