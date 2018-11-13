@@ -39,7 +39,7 @@ namespace ProjectEuler
             while (n > 0)
             {
                 var d = n % 10;
-                digits.Add(d);
+                digits.Add(d-1);
                 n /= 10;
             }
 
