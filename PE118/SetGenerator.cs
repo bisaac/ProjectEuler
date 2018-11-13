@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,8 @@ namespace ProjectEuler
         public int CreateSets()
         {
             totSolutions = 0;
-            SolveRecurseAndPrint();
+            // SolveRecurseAndPrint();
+            Solve();
             return totSolutions;
         }
 
@@ -39,11 +41,30 @@ namespace ProjectEuler
             while (n > 0)
             {
                 var d = n % 10;
-                digits.Add(d-1);
+                digits.Add(d - 1);
                 n /= 10;
             }
 
             return digits.ToArray();
+        }
+
+        public override void PrintSolution()
+        {
+            int[] s = new int[sol.Count];
+            IEnumerator ien = sol.GetEnumerator();
+            int index = 0;
+            while (ien.MoveNext())
+            {
+                s[index++] = ((Node)ien.Current).Row;
+            }
+            Array.Sort(s);
+
+            for (int j = 0; j < s.Length; j++)
+            {
+                Console.Write((_primes[s[j]]).ToString().PadRight(10));
+            }
+            Console.WriteLine();
+
         }
     }
 }
