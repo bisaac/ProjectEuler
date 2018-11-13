@@ -67,6 +67,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE118", "PE118\PE118.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DancingLinks", "DancingLinks\DancingLinks.csproj", "{65326A86-25E8-487F-9E44-B16134FECDFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE120", "PE120\PE120.csproj", "{4060A3E7-DCD8-4EC3-B50E-7E92E8B7D367}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE642", "PE642\PE642.csproj", "{886A4C17-B41B-4C2B-8EAE-2CC60683A4A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -201,6 +205,14 @@ Global
 		{65326A86-25E8-487F-9E44-B16134FECDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65326A86-25E8-487F-9E44-B16134FECDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65326A86-25E8-487F-9E44-B16134FECDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4060A3E7-DCD8-4EC3-B50E-7E92E8B7D367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4060A3E7-DCD8-4EC3-B50E-7E92E8B7D367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4060A3E7-DCD8-4EC3-B50E-7E92E8B7D367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4060A3E7-DCD8-4EC3-B50E-7E92E8B7D367}.Release|Any CPU.Build.0 = Release|Any CPU
+		{886A4C17-B41B-4C2B-8EAE-2CC60683A4A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{886A4C17-B41B-4C2B-8EAE-2CC60683A4A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{886A4C17-B41B-4C2B-8EAE-2CC60683A4A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{886A4C17-B41B-4C2B-8EAE-2CC60683A4A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
