@@ -10,24 +10,25 @@ namespace ProjectEuler
         {
             Stopwatch clock = Stopwatch.StartNew();
             long result = 0;
-            int topNumber = 118;
+            int topNumber = 20000;
+            int goal = 1000;
+            var totals = new int[topNumber+1];
 
-            var sizes = new int[topNumber + 1, topNumber + 1, topNumber + 1];
+            for (var x = 1; getLayerSize(x,x,x,1) <= topNumber; x++)
+                for (var y = x; getLayerSize(x, x, y, 1) <= topNumber; y++)
+                    for (var z = y; getLayerSize(x, y, z, 1) <= topNumber; z++)
+                        for (var l = 1; getLayerSize(x, y, z, l) <= topNumber; l++)
+                            {
+                                // Console.WriteLine("{0} - {1} - {2}", x, y, z);
+                                var layerSize = getLayerSize(x, y, z, l);
+                                if (layerSize <= topNumber) totals[layerSize]++;
+                            }
 
-            for (var x = 1; x <= topNumber; x++)
-                for (var y = x; y <= topNumber / x; y++)
-                    for (var z = y; z <= topNumber / (x * y); z++)
-                    {
-                        var layer = 1;
-                        var layerSize = 0;
-                        while (layerSize <= topNumber)
-                        {
-                            layerSize = getLayerSize(x, y, z, layer);
-                            // Console.WriteLine(String.Format("{0}-{1}-{2} : {3}",x,y,z,layerSize));
-                            if (layerSize == topNumber) result++;
-                            layer++;
-                        }
-                    }
+            for (var i = 0; i < totals.Length; i++)
+            {
+                if (result == 0 && totals[i] == goal)
+                    result = i;
+            }
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
