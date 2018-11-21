@@ -14,7 +14,7 @@ namespace ProjectEuler
             string result = String.Empty;
 
             Dictionary<string, int> combinations = new Dictionary<string, int>();
-            combinations.Add("ABCDEF", 0);
+            combinations.Add("ABCD", 0);
             var spins = 0;
 
             while (true)
@@ -26,7 +26,7 @@ namespace ProjectEuler
                     for (var i = 2; i <= combo.Key.Length; i++)
                     {
                         var newCombo = RotateStringEnd(combo.Key, i);
-                        if (newCombo == "DFAECB") Console.WriteLine("DFAECB ==> " + spins + 1);
+                        //if (newCombo == "DFAECB") Console.WriteLine("DFAECB ==> " + spins + 1);
                         if (!combinations.ContainsKey(newCombo)) combinations.Add(newCombo, spins + 1);
                     }
                 }

@@ -1,0 +1,78 @@
+    public static IEnumerable<IList> Permutate(IList sequence, int count)
+    {
+      if (count == 1)
+      {
+        yield return sequence;
+      }
+      else
+      {
+        for (int i = 0; i < count; i++)
+        {
+          foreach (var perm in Permutate(sequence, count - 1))
+          {
+            yield return perm;
+          }
+
+          RotateRight(sequence, count);
+        }
+      }
+    }
+
+    public static List<string> Permutate(string word)
+    {
+      string a = word;
+      var list = new List<string>();
+      foreach (List<char> perm in Permutate(a.ToCharArray().ToList(), a.Length))
+      {
+        string s = new string(perm.ToArray());
+        list.Add(s);
+      }
+
+      list.Sort();
+      return list;
+    }
+
+    public static List<string> Permutate(long number, bool includeZero = false)
+    {
+      var numbers = new List<string>();
+
+      foreach (List<char> perm in Permutate(number.ToString().ToCharArray().ToList(), number.ToString().Length))
+      {
+        string s = new string(perm.ToArray());
+        if (!includeZero && s.IndexOf("0") != -1)
+        {
+          continue;
+        }
+
+        numbers.Add(s);
+      }
+
+      numbers.Sort();
+      return numbers;
+    }
+
+    public static List<string> Permutate(string number, bool includeZero)
+    {
+      var numbers = new List<string>();
+
+      foreach (List<char> perm in Permutate(number.ToCharArray().ToList(), number.Length))
+      {
+        string s = new string(perm.ToArray());
+        if (!includeZero && s.IndexOf("0") != -1)
+        {
+          continue;
+        }
+
+        numbers.Add(s);
+      }
+
+      numbers.Sort();
+      return numbers;
+    }
+
+	public static void RotateRight(IList sequence, int count)
+	{
+		var tmp = sequence[count - 1];
+		sequence.RemoveAt(count - 1);
+		sequence.Insert(0, tmp);
+	}
