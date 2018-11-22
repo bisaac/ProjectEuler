@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 
 namespace ProjectEuler
@@ -96,6 +97,33 @@ namespace ProjectEuler
             }
 
             return primes;
+        }
+
+        public static bool IsPrime(long n)
+        {
+            if (n < 2)
+                return false;
+            if (n < 4)
+                return true;
+            if (n % 2 == 0)
+                return false;
+            if (n < 9)
+                return true;
+            if (n % 3 == 0)
+                return false;
+            if (n < 25)
+                return true;
+
+            int s = (int)Math.Sqrt(n);
+            for (int i = 5; i <= s; i += 6)
+            {
+                if (n % i == 0)
+                    return false;
+                if (n % (i + 2) == 0)
+                    return false;
+            }
+
+            return true;
         }
 
         public static int GetFactorial(int number)
@@ -278,6 +306,49 @@ namespace ProjectEuler
                 x += m0;
 
             return x;
+        }
+
+        private static void CreatePermutations(string start, List<char> charList, List<string> permutations)
+        {
+            for (int i = 0; i < charList.Count; i++)
+            {
+                var current = charList[i];
+                charList.RemoveAt(i);
+                if (charList.Count == 0)
+                {
+                    var permutation = String.Format("{0}{1}", start, current);
+                    if (!permutations.Contains(permutation)) permutations.Add(permutation);
+                }
+                else
+                    CreatePermutations(String.Format("{0}{1}", start, current), charList, permutations);
+                charList.Insert(i, current);
+            }
+        }
+        private static void CreatePermutations(string start, List<int> intList, List<string> permutations)
+        {
+            for (int i = 0; i < intList.Count; i++)
+            {
+                var current = intList[i];
+                intList.RemoveAt(i);
+                if (intList.Count == 0)
+                {
+                    var permutation = String.Format("{0}{1}", start, current);
+                    if (!permutations.Contains(permutation)) permutations.Add(permutation);
+                }
+                else
+                    CreatePermutations(String.Format("{0}{1}", start, current), intList, permutations);
+                intList.Insert(i, current);
+            }
+        }
+        public static List<String> GetPermutations(string chars)
+        {
+            var permutations = new List<string>();
+            var charList = chars.ToArray().ToList();
+            //var intList = chars.Select(c => int.Parse(c.ToString())).ToList();
+
+            CreatePermutations(null, charList, permutations);
+
+            return permutations;
         }
     }
 }

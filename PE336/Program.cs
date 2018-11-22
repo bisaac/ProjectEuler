@@ -13,29 +13,12 @@ namespace ProjectEuler
             Stopwatch clock = Stopwatch.StartNew();
             string result = String.Empty;
 
-            Dictionary<string, int> combinations = new Dictionary<string, int>();
-            combinations.Add("ABCD", 0);
-            var spins = 0;
+            var positionNeeded = 2011;
+            var cars = "ABCDEFGHIJK";
 
-            while (true)
-            {
-                var currentCombos = combinations.Where(x => x.Value == spins).ToList();
-                if (currentCombos.Count == 0) break;
-                foreach (var combo in currentCombos)
-                {
-                    for (var i = 2; i <= combo.Key.Length; i++)
-                    {
-                        var newCombo = RotateStringEnd(combo.Key, i);
-                        //if (newCombo == "DFAECB") Console.WriteLine("DFAECB ==> " + spins + 1);
-                        if (!combinations.ContainsKey(newCombo)) combinations.Add(newCombo, spins + 1);
-                    }
-                }
-
-                spins++;
-            }
-
-            var topCombos = combinations.Where(x => x.Value == spins - 1).Select(x => x.Key).ToList();
-            topCombos.Sort();
+            var maximixes = CreatePermutations(cars);
+            maximixes.Sort();
+            result = maximixes[positionNeeded - 1];
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -43,18 +26,44 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        private static string RotateStringEnd(string start, int numLetters)
+        private static List<string> CreatePermutations(string train)
+        {
+            var permutations = new List<string>();
+
+            train = RotateStringEnd(train, 2);
+            permutations.AddRange(CreatePermutations(train, 3));
+
+            return permutations;
+        }
+
+        private static List<string> CreatePermutations(string train, int spin)
+        {
+            var permutations = new List<string>();
+
+            var workingTrain = RotateStringEnd(train, spin);
+            for (var i = 2; i < spin; i++)
+            {
+                if (spin == train.Length)
+                    permutations.Add(RotateStringEnd(workingTrain, i));
+                else
+                    permutations.AddRange(CreatePermutations(RotateStringEnd(workingTrain, i), spin + 1));
+            }
+
+            return permutations;
+        }
+
+        private static string RotateStringEnd(string train, int numCars)
         {
             var sb = new StringBuilder();
 
-            if (numLetters < start.Length)
+            if (numCars < train.Length)
             {
-                sb.Append(start.Substring(0, start.Length - numLetters));
+                sb.Append(train.Substring(0, train.Length - numCars));
             }
 
-            for (var i = 1; i <= numLetters; i++)
+            for (var i = 1; i <= numCars; i++)
             {
-                sb.Append(start[start.Length - i]);
+                sb.Append(train[train.Length - i]);
             }
 
             return sb.ToString();
