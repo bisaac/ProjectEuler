@@ -67,7 +67,7 @@ namespace ProjectEuler
                 new Clue("2659862637316867", 2)
             };
 
-            result = SolveClues(clues);
+            result = SolveClues(clues, "");
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -75,13 +75,14 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        private static string SolveClues(List<Clue> clues)
+        private static string SolveClues(List<Clue> clues, string precedingGuess)
         {
             string response = string.Empty;
 
             for (var i = 0; i < 10; i++)
             {
                 response = i.ToString();
+                Console.WriteLine(precedingGuess + response);
                 var newClues = new List<Clue>();
                 var bFlag = true;
                 foreach (var clue in clues)
@@ -92,7 +93,7 @@ namespace ProjectEuler
                         if (clue.Code[0] == response[0]) newScore--;
                         var newCode = clue.Code.Substring(1);
                         bFlag &= !(newScore < 0);
-                        bFlag &= !(newScore > 0 && newCode.Length == 0);
+                        bFlag &= !(newScore > newCode.Length);
                         if (newCode.Length > 0) newClues.Add(new Clue(newCode, newScore));
                     }
                 }
@@ -102,7 +103,7 @@ namespace ProjectEuler
 
                 if (bFlag && newClues.Count > 0)
                 {
-                    var nextLevel = SolveClues(newClues);
+                    var nextLevel = SolveClues(newClues, precedingGuess + response);
                     if (nextLevel != string.Empty) return response + nextLevel;
                 }
             }
