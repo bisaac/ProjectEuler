@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Numerics;
+using System.Threading;
 
 namespace ProjectEuler
 {
@@ -9,13 +12,31 @@ namespace ProjectEuler
         static void Main(string[] args)
         {
             Stopwatch clock = Stopwatch.StartNew();
-            long result = 0;
+            int result = 0;
             var primes = GetPrimes();
 
-            for (var n = 1; n <= primes.Count; n+=2)
+            // Charge through unworthy primes
+            var i = primes.Max();
+            while (i < 100000)
             {
-                var value = (Math.Pow(primes[n - 1] - 1, n) + Math.Pow(primes[n - 1] + 1, n)) % (primes[n - 1] * primes[n - 1]);
-                Console.WriteLine(n + " ==> " + value);
+                i += 2;
+                if (Helpers.IsPrime(i)) primes.Add(i);
+            }
+            // Reset i
+            i = primes.Max();
+            result = primes.Count;
+            Console.WriteLine("{0} : {1}",i,result);
+            BigInteger remainder = 0;
+
+            while (remainder < 10000000000)
+            {
+                i += 2;
+                if (Helpers.IsPrime(i))
+                {
+                    result++;
+                    primes.Add(i);
+                    remainder = (BigInteger.Pow(i - 1, result) + BigInteger.Pow(i + 1, result)) % (new BigInteger(i) * new BigInteger(i));
+                }
             }
 
             clock.Stop();
