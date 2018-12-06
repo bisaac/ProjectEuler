@@ -53,22 +53,6 @@ namespace ProjectEuler
             return results;
         }
 
-        public static List<BigInteger> GetFactors(BigInteger v)
-        {
-            var results = new List<BigInteger>();
-
-            for (long i = 1; i * i < v; i++)
-            {
-                if (v % i == 0)
-                {
-                    results.Add(i);
-                    results.Add(v / i);
-                }
-            }
-
-            return results;
-        }
-
         public static List<int> GenerateIntPrimesBySieve(int maxNumber)
         {
             var sieve = GeneratePrimeSieve(maxNumber);
@@ -140,6 +124,11 @@ namespace ProjectEuler
             }
 
             return true;
+        }
+
+        public static int Gcd(int x, int y)
+        {
+            return y == 0 ? x : Gcd(y, x % y);
         }
 
         public static int GetFactorial(int number)
