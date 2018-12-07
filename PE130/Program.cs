@@ -10,12 +10,19 @@ namespace ProjectEuler
             Stopwatch clock = Stopwatch.StartNew();
             double result = 0;
 
-            for (var testNumber = 7; testNumber < 1000; testNumber += 2)
+            var found = 0;
+            var testNumber = 81;
+            while (found < 25)
             {
+                testNumber += 2;
                 if (Helpers.IsPrime(testNumber)) continue;
                 var a = A(testNumber);
                 if (a != 0 && (testNumber - 1) % a == 0)
-                    Console.WriteLine("n: {0}, n-1: {1}, A(n): {2}", testNumber, testNumber - 1, a);
+                {
+                    found++;
+                    result += testNumber;
+                    Console.WriteLine("({3}) n: {0}, n-1: {1}, A(n): {2}", testNumber, testNumber - 1, a, found);
+                }
             }
 
             clock.Stop();
