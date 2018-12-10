@@ -29,11 +29,11 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        private static int BuildWall(int height, Dictionary<int, List<int>> subLayers)
+        private static long BuildWall(int height, Dictionary<int, List<int>> subLayers)
         {
             if (height == 1) return subLayers.Count;
 
-            var count = 0;
+            long count = 0;
             foreach (var layer in GetWallCounts(height, subLayers))
             {
                 count += layer.Value;
@@ -41,9 +41,9 @@ namespace ProjectEuler
             return count;
         }
 
-        private static Dictionary<int, int> GetWallCounts(int height, Dictionary<int, List<int>> subLayers)
+        private static Dictionary<int, long> GetWallCounts(int height, Dictionary<int, List<int>> subLayers)
         {
-            var wallCounts = new Dictionary<int, int>();
+            var wallCounts = new Dictionary<int, long>();
 
             if (height == 1)
             {
@@ -58,7 +58,7 @@ namespace ProjectEuler
                 var subLayerCounts = GetWallCounts(height - 1, subLayers);
                 foreach (var layer in subLayers)
                 {
-                    var count = 0;
+                    long count = 0;
                     foreach (var sublayer in subLayers[layer.Key])
                     {
                         count += subLayerCounts[sublayer];
