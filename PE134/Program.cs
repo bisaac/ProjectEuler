@@ -12,7 +12,7 @@ namespace ProjectEuler
             BigInteger result = 0;
 
             var limit = 1000000;
-            var primes = Helpers.GenerateLongPrimesBySieve(limit + 10);  // 
+            var primes = Helpers.GenerateLongPrimesBySieve(limit + 100);
             primes.Remove(2);
             primes.Remove(3);
 
