@@ -6,17 +6,40 @@ namespace PE233
     {
         static void Main(string[] args)
         {
+            /*
+                f(1328125) = 180
+                f(84246500) = f(248431625) = 420
+
+                30875234922 for n<=38000000
+
+                271204031455541300
+                for n<=10^10 i have 2709499279563106.
+                is it correct?
+                Unfortunately, it's not.
+                You aren't the first one to get this particular result, though.
+                Yeah, you're on the right track, but are missing something that a lot of other people missed initially too.
+
+                Look at the definition given for f(N)
+
+                There are 5422629 solutions in total and there is no difference between even and odd N. It's something else
+
+                38000000 is significantly less than 10^11.
+                That's the only significance of 38000000.
+
+                Think I just had my epiphany, having to do with the completeness of my 3(mod4) list
+             */
+
             long result = 0;
 
-            for (var diameter = 100000000000; diameter > 0; diameter--)
+            for (long N = 1; N < 100000000000; N++)
             {
-                Console.WriteLine("Diameter: " + diameter);
+                Console.WriteLine("Diameter: " + N);
 
                 var mod1 = 0;
                 var mod3 = 0;
 
-                var diameterSquared = 2 * diameter * diameter;
-                for (var i = (int) Math.Floor(Math.Sqrt(diameterSquared)); i > 0; i--)
+                var diameterSquared = 2 * N * N;
+                for (var i = 1; i * i <= diameterSquared; i++)
                 {
                     if (diameterSquared % i == 0)
                     {
@@ -35,7 +58,7 @@ namespace PE233
                 }
 
                 if ((mod1 - mod3) == 105)  // 420 points
-                    result += diameter;
+                    result += N;
 
                 //result = 4 * (mod1 - mod3);
             }
