@@ -31,31 +31,37 @@ namespace PE233
 
             long result = 0;
 
-            for (long N = 1; N < 100000000000; N++)
+            //for (long N = 1; N <= 100000000000; N++)
+            for (long N = 1; N <= 38000000; N++)
+            //for (long N = 248431625; N <= 248431625; N++)
             {
-                Console.WriteLine("Diameter: " + N);
+                //Console.WriteLine("Diameter: " + N);
 
                 var mod1 = 0;
                 var mod3 = 0;
 
                 var diameterSquared = 2 * N * N;
-                for (var i = 1; i * i <= diameterSquared; i++)
+                for (long i = 1; i * i <= diameterSquared; i++)
                 {
                     if (diameterSquared % i == 0)
                     {
                         if (i % 4 == 1 || diameterSquared / i % 4 == 1)
                         {
                             mod1++;
-                            ////Console.WriteLine(i + " Mod 4 == 1");
+                            //Console.WriteLine(i + " Mod 4 == 1");
                         }
 
                         if (i % 4 == 3 || diameterSquared / i % 4 == 3)
                         {
                             mod3++;
-                            ////Console.WriteLine(i + " Mod 4 == 3");
+                            //Console.WriteLine(i + " Mod 4 == 3");
                         }
                     }
                 }
+
+                //Console.WriteLine("Diameter: {3}, Mod1: {0}, Mod3: {1}, Result: {2}", mod1, mod3, 4 * (mod1 - mod3), N);
+
+                // (420 - 4) / 8 = 104
 
                 if ((mod1 - mod3) == 105)  // 420 points
                     result += N;
