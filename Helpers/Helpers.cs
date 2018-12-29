@@ -13,6 +13,19 @@ namespace ProjectEuler
             return System.IO.File.ReadAllText(fileName).Replace("\"", "");
         }
 
+        public static List<long> GeneratePrimeList(int maxNumber)
+        {
+            var primes = new List<long> { 2, 3 };
+
+            for (long i = 5; i <= maxNumber; i += 6)
+            {
+                if (IsPrime(i)) primes.Add(i);
+                if (IsPrime(i + 2)) primes.Add(i + 2);
+            }
+
+            return primes;
+        }
+
         public static ArrayList GeneratePrimes(int toGenerate)
         {
             ArrayList primes = new ArrayList();
