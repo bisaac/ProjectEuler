@@ -21,31 +21,42 @@ namespace ProjectEuler
 
             // primes = new List<int>();
             primes = Helpers.GenerateIntPrimesBySieve(term[finalTerm]);
-            values = new List<int>[46369];
-            values[1] = new List<int>();
+            //values = new List<int>[46369];
+            //values[1] = new List<int>();
 
-            //for (int i = 2; i <= term[finalTerm]; i++)
-            for (int i = 2; i <= finalTerm; i++)
+            ////for (int i = 2; i <= term[finalTerm]; i++)
+            //for (int i = 2; i <= finalTerm; i++)
+            //{
+            //    //if (Helpers.IsPrime(i))
+            //    //{
+            //    //    primes.Add(i);
+            //    //    values[i] = new List<int> {i};
+            //    //}
+
+            //    // FindEntries(i);
+            //    Console.WriteLine($"{i,-8} : {term[i]}");
+            //    FindEntries(term[i], 0, 0, 1);
+            //}
+
+            ////result = term.Length;
+            //for (var i = 2; i <= finalTerm; i++)
+            //    result += values[term[i]].Sum() % 1000000;
+
+            for (var i = 2; i <= 15; i++)
             {
-                //if (Helpers.IsPrime(i))
-                //{
-                //    primes.Add(i);
-                //    values[i] = new List<int> {i};
-                //}
-
-                // FindEntries(i);
-                Console.WriteLine($"{i,-8} : {term[i]}");
-                FindEntries(term[i], 0, 0, 1);
+                var nhpi = NextHighestPrimeIndex(term[i]);
+                Console.WriteLine($"{term[i],-7} : {nhpi,5} --> {primes[nhpi],5}");
             }
-
-            //result = term.Length;
-            for (var i = 2; i <= finalTerm; i++)
-                result += values[term[i]].Sum() % 1000000;
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
             Console.WriteLine("Solution took {0} ms", clock.Elapsed.TotalMilliseconds);
             Console.ReadLine();
+        }
+
+        private static int NextHighestPrimeIndex(int value)
+        {
+            return primes.FindIndex(p => p == primes.Where(pr => pr >= value).Min());
         }
 
         private static void FindEntries(int value)
