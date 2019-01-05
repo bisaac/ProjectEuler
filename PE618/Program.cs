@@ -7,7 +7,7 @@ namespace ProjectEuler
 {
     class Program
     {
-        private static List<int>[] values;
+        private static long[,] values;
 
         private static List<int> primes;
 
@@ -15,79 +15,45 @@ namespace ProjectEuler
         {
             Stopwatch clock = Stopwatch.StartNew();
             long result = 0;
+
             int finalTerm = 24;
+            int mask = (int)Math.Pow(10, 9);
 
             var term = new int[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368 };
 
-            // primes = new List<int>();
-            primes = Helpers.GenerateIntPrimesBySieve(term[finalTerm]);
-            //values = new List<int>[46369];
-            //values[1] = new List<int>();
+            primes = Helpers.GenerateIntPrimesBySieve(term[finalTerm] + 1);
+            primes.Insert(0, 0);
 
-            ////for (int i = 2; i <= term[finalTerm]; i++)
-            //for (int i = 2; i <= finalTerm; i++)
-            //{
-            //    //if (Helpers.IsPrime(i))
-            //    //{
-            //    //    primes.Add(i);
-            //    //    values[i] = new List<int> {i};
-            //    //}
+            values = new long[term[finalTerm] + 1, primes.Count];
 
-            //    // FindEntries(i);
-            //    Console.WriteLine($"{i,-8} : {term[i]}");
-            //    FindEntries(term[i], 0, 0, 1);
-            //}
+            // Fill zero column so primes are added appropriately
+            for (int j = 0; j < primes.Count; values[0, j++] = 1);
 
-            ////result = term.Length;
-            //for (var i = 2; i <= finalTerm; i++)
-            //    result += values[term[i]].Sum() % 1000000;
-
-            for (var i = 2; i <= 15; i++)
+            for (var k = 2; k <= term[finalTerm]; k++)
             {
-                var nhpi = NextHighestPrimeIndex(term[i]);
-                Console.WriteLine($"{term[i],-7} : {nhpi,5} --> {primes[nhpi],5}");
+                for (var j = 1; j < primes.Count; j++)
+                {
+                    if (primes[j] <= k)
+                    {
+                        values[k, j] = (values[k, j - 1] + primes[j] * values[k - primes[j], j]) % mask;
+                    }
+                    else
+                    {
+                        values[k, j] = values[k, j - 1];
+                    }
+                }
+            }
+
+            for (var f = 2; f <= finalTerm; f++)
+            {
+                Console.WriteLine($"{f,5} : {term[f],5} : {values[term[f], primes.Count - 1], 10}");
+                result = (result + values[term[f], primes.Count - 1]) % mask;
             }
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
             Console.WriteLine("Solution took {0} ms", clock.Elapsed.TotalMilliseconds);
             Console.ReadLine();
-        }
-
-        private static int NextHighestPrimeIndex(int value)
-        {
-            return primes.FindIndex(p => p == primes.Where(pr => pr >= value).Min());
-        }
-
-        private static void FindEntries(int value)
-        {
-            if (values[value] == null) values[value] = new List<int>();
-
-            for (var p = 0; p < primes.Count && primes[p] < value; p++)
-            {
-                var diff = value - primes[p];
-                foreach (var product in values[diff])
-                {
-                    var currentProduct = (product * primes[p]) % 1000000;
-                    if (!values[value].Contains(currentProduct)) values[value].Add(currentProduct);
-                }
-            }
-        }
-
-        private static void FindEntries(int totalSum, int startingPrime, int currentSum, int currentProduct)
-        {
-            if (totalSum == currentSum)
-            {
-                if (values[totalSum] == null) values[totalSum] = new List<int>();
-                if (!values[totalSum].Contains(currentProduct)) values[totalSum].Add(currentProduct);
-            }
-            else
-            {
-                for (var t = startingPrime; t < primes.Count && primes[t] <= totalSum - currentSum; t++)
-                {
-                    FindEntries(totalSum, t, currentSum + primes[t], (currentProduct * primes[t]) % 1000000000);
-                }
-            }
         }
     }
 }
