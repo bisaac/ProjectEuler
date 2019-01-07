@@ -69,6 +69,11 @@ namespace ProjectEuler
         public static List<int> GenerateIntPrimesBySieve(int maxNumber)
         {
             var sieve = GeneratePrimeSieve(maxNumber);
+            return GenerateIntPrimesBySieve(maxNumber, sieve);
+        }
+
+        public static List<int> GenerateIntPrimesBySieve(int maxNumber, BitArray sieve)
+        {
             List<int> primes = new List<int>();
             for (int i = 2; i < sieve.Length; i++)
             {
