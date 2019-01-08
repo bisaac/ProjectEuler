@@ -149,6 +149,17 @@ namespace ProjectEuler
             return y == 0 ? x : Gcd(y, x % y);
         }
 
+        public static long Gcd(long x, long y)
+        {
+            while (true)
+            {
+                if (y == 0) return x;
+                var x1 = x;
+                x = y;
+                y = x1 % y;
+            }
+        }
+
         public static int GetFactorial(int number)
         {
             if (number < 1) return 1;
