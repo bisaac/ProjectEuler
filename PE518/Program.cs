@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
 
 namespace ProjectEuler
@@ -12,28 +11,23 @@ namespace ProjectEuler
             Stopwatch clock = Stopwatch.StartNew();
             BigInteger result = 0;
             int upperLimit = 100000000;
-            // int upperLimit = 100;
 
-            var primeSieve = Helpers.GeneratePrimeSieve(upperLimit);
-            var primes = Helpers.GenerateIntPrimesBySieve(upperLimit, primeSieve);
+            var primes = Helpers.GeneratePrimeSieve(upperLimit);
 
-            for (var a = 0; a < primes.Count - 2; a++)
-            {
-                Console.WriteLine($"{primes[a],9}, {result}");
-                double primeA = primes[a];
-                bool bFlag = true;
-
-                for (var b = a + 1; b < primes.Count - 1 && bFlag; b++)
+            for (var x = 2; x * x <= upperLimit; x++)
+                for (var y = 1; y < x; y++)
                 {
-                    double primeB = primes[b];
-                    double c = (primeB + 1) * (primeB + 1) / (primeA + 1) - 1;
-                    bFlag = c < upperLimit;
+                    // Make sure the fraction x/y cannot be reduced
+                    if (Helpers.Gcd(x, y) > 1) continue;
 
-                    if (bFlag && c == Math.Round(c) && primes.Contains((int)c))
+                    for (var z = 1; z*x*x <= upperLimit; z++)
                     {
-                        result += primes[a] + primes[b] + (int)c;
+                        if (primes[z * y * y - 1] && primes[z * y * x - 1] && primes[z * x * x - 1])
+                        {
+                            result += z * y * y + z * y * x + z * x * x - 3;
+                        }
                     }
-                }}
+                }
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
