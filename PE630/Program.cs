@@ -12,33 +12,32 @@ namespace ProjectEuler
         {
             Stopwatch clock = Stopwatch.StartNew();
             BigInteger result = 0;
-            var n = 100;
+            var n = 2500;
 
             var points = GetPoints(n);
-            //var points = new List<Point> { new Point(0, 0), new Point(2, 2), new Point(4, 4), new Point(2, 7), new Point(4, 14) };
             var lines = new List<Line>();
 
             for (var i = 1; i < points.Count; i++)
             {
+                Console.WriteLine(i);
                 for (var j = 0; j < i; j++)
                 {
                     var line = new Line(points[i], points[j]);
-                    if (!lines.Any(l => l.SlopeX == line.SlopeX && l.SlopeY == line.SlopeY && l.PointX == line.PointX && l.PointY == line.PointY))
-                    {
-                        lines.Add(line);
-                    }
+                    //if (!lines.Any(l => l.SlopeX == line.SlopeX && l.SlopeY == line.SlopeY && l.PointX == line.PointX && l.PointY == line.PointY))
+                    //{
+                    //    lines.Add(line);
+                    //}
+                    var found = false;
+                    for (var l = 0; !found && l < lines.Count; l++)
+                        found = (line.SlopeX == lines[l].SlopeX && line.SlopeY == lines[l].SlopeY && line.PointX == lines[l].PointX && line.PointY == lines[l].PointY);
+                    if (!found) lines.Add(line);
                 }
             }
 
-            Console.WriteLine($"Number of lines: {lines.Count}");
-
-            //result = lines.Count;
-
-            Console.WriteLine("24477690");
+            //Console.WriteLine($"{lines.Count} lines");
+            //Console.WriteLine("24477690");  // for n = 100
             foreach (var line in lines)
             {
-                foreach (var x in lines.Where(l => l.SlopeX == line.SlopeX && l.SlopeY == line.SlopeY && (l.PointX != line.PointX || l.PointY != line.PointY)))
-                    Console.WriteLine($"{x.SlopeX}, {x.SlopeY} ---> ({x.PointX}, {x.PointY}) & ({line.PointX},{line.PointY})");
                 result += lines.Count(l => l.SlopeX != line.SlopeX || l.SlopeY != line.SlopeY);
             }
 
@@ -99,13 +98,15 @@ namespace ProjectEuler
             SlopeX = (p2.X - p1.X);
             SlopeY = (p2.Y - p1.Y);
 
-            if (p2.X - p1.X == 0)
+            if (SlopeX == 0)
             {
+                SlopeY = 1;
                 PointX = p1.X;
                 PointY = 0;
             }
-            else if (p2.Y - p1.Y == 0)
+            else if (SlopeY == 0)
             {
+                SlopeX = 1;
                 PointX = 0;
                 PointY = p1.Y;
             }
