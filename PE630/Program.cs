@@ -36,7 +36,11 @@ namespace ProjectEuler
 
             Console.WriteLine("24477690");
             foreach (var line in lines)
+            {
+                foreach (var x in lines.Where(l => l.SlopeX == line.SlopeX && l.SlopeY == line.SlopeY && (l.PointX != line.PointX || l.PointY != line.PointY)))
+                    Console.WriteLine($"{x.SlopeX}, {x.SlopeY} ---> ({x.PointX}, {x.PointY}) & ({line.PointX},{line.PointY})");
                 result += lines.Count(l => l.SlopeX != line.SlopeX || l.SlopeY != line.SlopeY);
+            }
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -73,10 +77,10 @@ namespace ProjectEuler
 
     class Point
     {
-        public int X { get; }
-        public int Y { get; }
+        public long X { get; }
+        public long Y { get; }
 
-        public Point(int x, int y)
+        public Point(long x, long y)
         {
             X = x;
             Y = y;
@@ -85,10 +89,10 @@ namespace ProjectEuler
 
     class Line
     {
-        public int SlopeX { get; }
-        public int SlopeY { get; }
-        public double PointX { get; }
-        public double PointY { get; }
+        public long SlopeX { get; }
+        public long SlopeY { get; }
+        public long PointX { get; }
+        public long PointY { get; }
 
         public Line(Point p1, Point p2)
         {
@@ -134,7 +138,7 @@ namespace ProjectEuler
 
         }
 
-        public static int Gcd(int x, int y)
+        public static long Gcd(long x, long y)
         {
             return y == 0 ? x : Gcd(y, x % y);
         }
