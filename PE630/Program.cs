@@ -19,27 +19,44 @@ namespace ProjectEuler
 
             for (var i = 1; i < points.Count; i++)
             {
-                Console.WriteLine(i);
                 for (var j = 0; j < i; j++)
                 {
-                    var line = new Line(points[i], points[j]);
-                    //if (!lines.Any(l => l.SlopeX == line.SlopeX && l.SlopeY == line.SlopeY && l.PointX == line.PointX && l.PointY == line.PointY))
-                    //{
-                    //    lines.Add(line);
-                    //}
-                    var found = false;
-                    for (var l = 0; !found && l < lines.Count; l++)
-                        found = (line.SlopeX == lines[l].SlopeX && line.SlopeY == lines[l].SlopeY && line.PointX == lines[l].PointX && line.PointY == lines[l].PointY);
-                    if (!found) lines.Add(line);
+                    lines.Add(new Line(points[i], points[j]));
                 }
             }
 
-            //Console.WriteLine($"{lines.Count} lines");
-            //Console.WriteLine("24477690");  // for n = 100
-            foreach (var line in lines)
+            lines = lines.OrderBy(l => l.SlopeY).ThenBy(l => l.SlopeX).ThenBy(l => l.PointX).ThenBy(l => l.PointY).ToList();
+
+            var k = 1;
+            while (k < lines.Count)
             {
-                result += lines.Count(l => l.SlopeX != line.SlopeX || l.SlopeY != line.SlopeY);
+                if (lines[k].SlopeY == lines[k - 1].SlopeY && lines[k].SlopeX == lines[k - 1].SlopeX && lines[k].PointX == lines[k - 1].PointX && lines[k].PointY == lines[k - 1].PointY)
+                {
+                    lines.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
             }
+
+            //Console.WriteLine("ANSWER: 24477690");  // for n = 100
+
+            var holdSlopeX = lines[0].SlopeX;
+            var holdSlopeY = lines[0].SlopeY;
+            var lineCount = 1;
+            for (var i = 1; i < lines.Count; i++)
+            {
+                if (holdSlopeX != lines[i].SlopeX || holdSlopeY != lines[i].SlopeY)
+                {
+                    result += ((long)lines.Count - lineCount) * lineCount;
+                    holdSlopeX = lines[i].SlopeX;
+                    holdSlopeY = lines[i].SlopeY;
+                    lineCount = 0;
+                }
+                lineCount++;
+            }
+            result += ((long)lines.Count - lineCount) * lineCount;
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
