@@ -21,48 +21,67 @@ namespace ProjectEuler
             {
                 for (var j = 0; j < i; j++)
                 {
+                    if (points[i].X == points[j].X && points[i].Y == points[j].Y) continue;
                     lines.Add(new Line(points[i], points[j]));
                 }
             }
 
             lines = lines.OrderBy(l => l.SlopeY).ThenBy(l => l.SlopeX).ThenBy(l => l.PointX).ThenBy(l => l.PointY).ToList();
 
-            var k = 1;
-            while (k < lines.Count)
+            var k = 0;
+            while (k < lines.Count-1)
             {
-                if (lines[k].SlopeY == lines[k - 1].SlopeY && lines[k].SlopeX == lines[k - 1].SlopeX && lines[k].PointX == lines[k - 1].PointX && lines[k].PointY == lines[k - 1].PointY)
+                var next = 1;
+                while (lines[k].SlopeX == lines[k + next].SlopeX && lines[k].SlopeY == lines[k + next].SlopeY)
                 {
-                    lines.RemoveAt(k);
+                    if (lines[k].SlopeX * (lines[k + next].PointY - lines[k].PointY) == lines[k].SlopeY * (lines[k + next].PointX - lines[k].PointX)) // Same line
+                        lines.RemoveAt(k + next);
+                    else
+                        next++;
                 }
-                else
-                {
-                    k++;
-                }
+                k++;
             }
 
             Console.WriteLine($"Lines: {lines.Count}");
-            //Console.WriteLine("ANSWER: 24477690");  // for n = 100
 
-            //long holdSlopeX = lines[0].SlopeX;
-            //long holdSlopeY = lines[0].SlopeY;
-            //long lineCount = 1;
+            #region Add up line intersections
 
-            //for (var i = 1; i < lines.Count; i++)
+            long holdSlopeX = lines[0].SlopeX;
+            long holdSlopeY = lines[0].SlopeY;
+            long lineCount = 1;
+
+            for (var i = 1; i < lines.Count; i++)
+            {
+                if (holdSlopeX != lines[i].SlopeX || holdSlopeY != lines[i].SlopeY)
+                {
+                    result += ((long)lines.Count - lineCount) * lineCount;
+                    holdSlopeX = lines[i].SlopeX;
+                    holdSlopeY = lines[i].SlopeY;
+                    lineCount = 0;
+                }
+                lineCount++;
+            }
+            result += ((long)lines.Count - lineCount) * lineCount;
+
+            #endregion
+
+            #region Subtractive
+
+            //result = new BigInteger(lines.Count) * new BigInteger(lines.Count - 1);
+
+            //for (var i = 0; i < lines.Count - 1; i++)
             //{
-            //    if (holdSlopeX != lines[i].SlopeX || holdSlopeY != lines[i].SlopeY)
+            //    if (lines[i].SlopeX == lines[i + 1].SlopeX && lines[i].SlopeY == lines[i + 1].SlopeY)
             //    {
-            //        result += ((long)lines.Count - lineCount) * lineCount;
-            //        Console.WriteLine(result);
-            //        holdSlopeX = lines[i].SlopeX;
-            //        holdSlopeY = lines[i].SlopeY;
-            //        lineCount = 0;
+            //        //Console.WriteLine("Before : " + result);
+            //        var matches = 1;
+            //        while (lines[i].SlopeX == lines[i + matches].SlopeX && lines[i].SlopeY == lines[i + matches].SlopeY) matches++;
+            //        result -= matches * (matches - 1);
+            //        i += matches - 1;
             //    }
-            //    lineCount++;
             //}
-            //result += ((long)lines.Count - lineCount) * lineCount;
 
-            foreach (var line in lines)
-                result += lines.Count(l => l.SlopeY != line.SlopeY || l.SlopeX != line.SlopeX);
+            #endregion
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
