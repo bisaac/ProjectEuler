@@ -40,23 +40,29 @@ namespace ProjectEuler
                 }
             }
 
+            Console.WriteLine($"Lines: {lines.Count}");
             //Console.WriteLine("ANSWER: 24477690");  // for n = 100
 
-            var holdSlopeX = lines[0].SlopeX;
-            var holdSlopeY = lines[0].SlopeY;
-            var lineCount = 1;
-            for (var i = 1; i < lines.Count; i++)
-            {
-                if (holdSlopeX != lines[i].SlopeX || holdSlopeY != lines[i].SlopeY)
-                {
-                    result += ((long)lines.Count - lineCount) * lineCount;
-                    holdSlopeX = lines[i].SlopeX;
-                    holdSlopeY = lines[i].SlopeY;
-                    lineCount = 0;
-                }
-                lineCount++;
-            }
-            result += ((long)lines.Count - lineCount) * lineCount;
+            //long holdSlopeX = lines[0].SlopeX;
+            //long holdSlopeY = lines[0].SlopeY;
+            //long lineCount = 1;
+
+            //for (var i = 1; i < lines.Count; i++)
+            //{
+            //    if (holdSlopeX != lines[i].SlopeX || holdSlopeY != lines[i].SlopeY)
+            //    {
+            //        result += ((long)lines.Count - lineCount) * lineCount;
+            //        Console.WriteLine(result);
+            //        holdSlopeX = lines[i].SlopeX;
+            //        holdSlopeY = lines[i].SlopeY;
+            //        lineCount = 0;
+            //    }
+            //    lineCount++;
+            //}
+            //result += ((long)lines.Count - lineCount) * lineCount;
+
+            foreach (var line in lines)
+                result += lines.Count(l => l.SlopeY != line.SlopeY || l.SlopeX != line.SlopeX);
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
