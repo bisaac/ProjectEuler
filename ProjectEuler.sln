@@ -117,7 +117,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE235", "PE235\PE235.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoundingExperiment", "RoundingExperiment\RoundingExperiment.csproj", "{EB32FDCA-D9C8-4FCA-83F3-9E3CCF09779A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE630", "PE630\PE630.csproj", "{8B57A088-683E-498A-9AC1-2FAB358DD1DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE630", "PE630\PE630.csproj", "{8B57A088-683E-498A-9AC1-2FAB358DD1DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE480", "PE480\PE480.csproj", "{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -357,6 +359,10 @@ Global
 		{8B57A088-683E-498A-9AC1-2FAB358DD1DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B57A088-683E-498A-9AC1-2FAB358DD1DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B57A088-683E-498A-9AC1-2FAB358DD1DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
