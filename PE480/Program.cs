@@ -71,17 +71,24 @@ namespace ProjectEuler
             //    Console.WriteLine("}}");
             //}
 
+            ////for (var p = 1; p <= phrase.Length; p++)
+            //for (var p = 1; p <= 15; p++)
+            //{
+            //    Variations<char> variations = new Variations<char>(inputSet, p, GenerateOption.WithoutRepetition);
+            //    Console.WriteLine($"Variations of {{phrase}} choose {p}: size = {variations.Count}");
+            //    result += variations.Count;
+            //}
+
             for (var p = 1; p <= phrase.Length; p++)
             {
-                Combinations<char> variations = new Combinations<char>(inputSet, p, GenerateOption.WithoutRepetition);
+                Variations<char> variations = new Variations<char>(inputSet, p, GenerateOption.WithoutRepetition);
                 Console.WriteLine($"Variations of {{phrase}} choose {p}: size = {variations.Count}");
+                result += variations.Count;
             }
 
-            // 525069350231428029
-
             clock.Stop();
-            //Console.WriteLine("Is it?: 525069350231428029");
-            //Console.WriteLine("Answer: " + result);
+            Console.WriteLine("Is it   525069350231428029");
+            Console.WriteLine("Answer: " + result);
             Console.WriteLine("Solution took {0} ms", clock.Elapsed.TotalMilliseconds);
             Console.ReadLine();
         }
