@@ -15,7 +15,8 @@ namespace ProjectEuler
             BigInteger result = 0;
 
             //var phrase = "thereisasyetinsufficientdataforameaningfulanswer";
-            var phrase = "aaaaaacdeeeeeeffffghiiiiilmnnnnnorrrssssttttuuwy";
+            //var phrase = "aaaaaacdeeeeeeffffghiiiiilmnnnnnorrrssssttttuuwy";
+            var phrase = "aabbbcd";
 
             //BigInteger subcount = 1;
             //for (var count = 1; count <= 15; count++)
