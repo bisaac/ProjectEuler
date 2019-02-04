@@ -27,7 +27,7 @@ namespace ProjectEuler
 
                 for (BigInteger n = step; n < maxLimit; n += step)
                 {
-                    if ((n + i + 1) % (i + 1) != 0) result++;
+                    if (n % (i + 1) != 0) result++;
                 }
             }
 
