@@ -10,7 +10,7 @@ namespace ProjectEuler
         static void Main(string[] args)
         {
             Stopwatch clock = Stopwatch.StartNew();
-            long result = 0;
+            uint result = 0;
 
             //var hamming = new List<long>();
 
@@ -26,8 +26,21 @@ namespace ProjectEuler
             //for (var i = 0; i < hamming.Count; i++) Console.WriteLine(hamming[i]);
             //result = hamming.Count;
 
-            for (var d = 1; d <= 100; d++)
-                Console.WriteLine($"{d,3} : {Totient(d),4}");
+            for (uint d = 1; d <= 100; d++)
+            {
+                Console.Write($"{d,3} : ");
+                var totient = Totient(d);
+                Console.Write($"{totient,4}");
+                while (totient % 2 == 0) totient /= 2;
+                while (totient % 3 == 0) totient /= 3;
+                while (totient % 5 == 0) totient /= 5;
+                if (totient == 1)
+                {
+                    Console.Write($"  true");
+                    result = (result + d);
+                }
+                Console.WriteLine();
+            }
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -35,14 +48,14 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        public static int Totient(int number)
+        public static uint Totient(uint number)
         {
             if (Helpers.IsPrime(number)) return number - 1;
 
             double product = 1;
 
-            int holdValue = number;
-            int index = 2;
+            ulong holdValue = number;
+            ulong index = 2;
             while (holdValue > 1)
             {
                 while (!Helpers.IsPrime(index)) index++;
@@ -57,7 +70,7 @@ namespace ProjectEuler
                 index++;
             }
 
-            return Convert.ToInt32(product * number);
+            return Convert.ToUInt32(product * number);
         }
     }
 }
