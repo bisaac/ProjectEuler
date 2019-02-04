@@ -23,8 +23,6 @@ namespace ProjectEuler
                 }
 
                 BigInteger maxLimit = BigInteger.Pow(4, i) - 1;
-                BigInteger currentNumber = step;
-
                 for (BigInteger n = step; n < maxLimit; n += step)
                 {
                     if (n % (i + 1) != 0) result++;
