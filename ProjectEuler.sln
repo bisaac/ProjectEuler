@@ -121,7 +121,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE630", "PE630\PE630.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE480", "PE480\PE480.csproj", "{D5955FAA-3008-45B1-A8AA-D4D77D45F0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permutations", "Permutations\Permutations.csproj", "{6DA71EBC-9623-4AE6-9E01-4EF627C08243}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permutations", "Permutations\Permutations.csproj", "{6DA71EBC-9623-4AE6-9E01-4EF627C08243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE601", "PE601\PE601.csproj", "{03C56099-B874-443D-8356-26DC2FB10389}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -369,6 +371,10 @@ Global
 		{6DA71EBC-9623-4AE6-9E01-4EF627C08243}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DA71EBC-9623-4AE6-9E01-4EF627C08243}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DA71EBC-9623-4AE6-9E01-4EF627C08243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C56099-B874-443D-8356-26DC2FB10389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C56099-B874-443D-8356-26DC2FB10389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C56099-B874-443D-8356-26DC2FB10389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C56099-B874-443D-8356-26DC2FB10389}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

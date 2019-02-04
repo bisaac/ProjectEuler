@@ -149,6 +149,11 @@ namespace ProjectEuler
             return y == 0 ? x : Gcd(y, x % y);
         }
 
+        public static BigInteger Gcd(BigInteger x, BigInteger y)
+        {
+            return y == 0 ? x : Gcd(y, x % y);
+        }
+
         public static long Gcd(long x, long y)
         {
             while (true)
