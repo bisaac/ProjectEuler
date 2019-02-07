@@ -7,27 +7,53 @@ namespace ProjectEuler
 {
     class Program
     {
+        private static long upperLimit = 100; //1000000000000;
+        private static long result = 0;
+        private static List<long> primes;
+
         static void Main(string[] args)
         {
             Stopwatch clock = Stopwatch.StartNew();
-            long result = 0;
+            //long result = 0;
 
-            //var hamming = new List<long>();
+            var hamming = new List<long>();
+            //var upperLimit = 1000000000000;
 
-            //for (var two = 0; two < 7; two++)
-            //for (var three = 0; three < 5; three++)
-            //for (var five = 0; five < 3; five++)
-            //{
-            //    long value = (long)(Math.Pow(2, two) * Math.Pow(3, three) * Math.Pow(5, five));
-            //    if (value < 100) hamming.Add(value);
-            //}
+            long baseTwo = 1;
+            while (baseTwo < upperLimit)
+            {
+                long baseThree = 1;
+                while (baseTwo * baseThree <= upperLimit)
+                {
+                    long baseFive = 1;
+                    while (baseTwo * baseThree * baseFive <= upperLimit)
+                    {
+                        hamming.Add(baseTwo * baseThree * baseFive);
+                        baseFive *= 5;
+                    }
+                    baseThree *= 3;
+                }
+                baseTwo *= 2;
+            }
 
-            //hamming.Sort();
-            //for (var i = 0; i < hamming.Count; i++) Console.WriteLine(hamming[i]);
             //result = hamming.Count;
 
-            for (var d = 1; d <= 100; d++)
-                Console.WriteLine($"{d,3} : {Totient(d),4}");
+            //hamming.Sort();
+            primes = new List<long>();
+            for (var i = 0; i < hamming.Count; i++)
+            {
+                if (IsPrime(i + 1))
+                {
+                    primes.Add(i + 1);
+                    //result += i;
+                }
+            }
+            //result = primes.Count;
+
+            for (var d = 1; d < 100; d++)
+                if (hamming.Contains(Totient(d))) Console.WriteLine($"\t{d}");
+
+            AddPrimeMultiples(1, 2);
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -35,9 +61,50 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        public static int Totient(int number)
+        private static void AddPrimeMultiples(long current, long lastprime)
         {
-            if (Helpers.IsPrime(number)) return number - 1;
+            if (current >= upperLimit) return;
+
+            Console.WriteLine(current);
+
+            result += current;
+
+            foreach (var p in primes.Where(pr => pr >= lastprime))
+            {
+                AddPrimeMultiples(current * p, p);
+            }
+        }
+
+        private static bool IsPrime(long n)
+        {
+            if (n < 2)
+                return false;
+            if (n < 4)
+                return true;
+            if (n % 2 == 0)
+                return false;
+            if (n < 9)
+                return true;
+            if (n % 3 == 0)
+                return false;
+            if (n < 25)
+                return true;
+
+            int s = (int)Math.Sqrt(n);
+            for (int i = 5; i <= s; i += 6)
+            {
+                if (n % i == 0)
+                    return false;
+                if (n % (i + 2) == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static int Totient(int number)
+        {
+            if (IsPrime(number)) return number - 1;
 
             double product = 1;
 
@@ -45,7 +112,7 @@ namespace ProjectEuler
             int index = 2;
             while (holdValue > 1)
             {
-                while (!Helpers.IsPrime(index)) index++;
+                while (!IsPrime(index)) index++;
 
                 if (holdValue % index == 0)
                 {
