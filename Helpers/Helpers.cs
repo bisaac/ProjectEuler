@@ -144,6 +144,33 @@ namespace ProjectEuler
             return true;
         }
 
+        public static bool IsPrime(ulong n)
+        {
+            if (n < 2)
+                return false;
+            if (n < 4)
+                return true;
+            if (n % 2 == 0)
+                return false;
+            if (n < 9)
+                return true;
+            if (n % 3 == 0)
+                return false;
+            if (n < 25)
+                return true;
+
+            ulong s = (ulong)Math.Sqrt(n);
+            for (ulong i = 5; i <= s; i += 6)
+            {
+                if (n % i == 0)
+                    return false;
+                if (n % (i + 2) == 0)
+                    return false;
+            }
+
+            return true;
+        }
+
         public static int Gcd(int x, int y)
         {
             return y == 0 ? x : Gcd(y, x % y);
