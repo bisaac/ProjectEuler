@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 
 namespace ProjectEuler
 {
@@ -11,7 +12,8 @@ namespace ProjectEuler
         // S(1000000000) = 964002218 (mod 2^32)
 
         private static long upperLimit = 1000000000000;
-        private static uint result = 0;
+        private static long mask = (long)Math.Pow(2, 32);
+        private static BigInteger result = 0;
         private static List<long> primes;
 
         static void Main(string[] args)
@@ -65,13 +67,13 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        private static void AddPrimeMultiples(long current, long lastprime)
+        private static void AddPrimeMultiples(BigInteger current, long lastprime)
         {
             if (current > upperLimit) return;
 
             //Console.WriteLine(current);
 
-            result += (uint)current;
+            result = (result + current) % mask;
 
             // Somehow check for 2, 3, and 5
 
