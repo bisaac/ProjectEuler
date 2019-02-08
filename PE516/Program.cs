@@ -8,9 +8,6 @@ namespace ProjectEuler
 {
     class Program
     {
-        // S(1000000)    = 2236471777 (mod 2^32)
-        // S(1000000000) = 964002218 (mod 2^32)
-
         private static long upperLimit = 1000000000000;
         private static long mask = (long)Math.Pow(2, 32);
         private static BigInteger result = 0;
@@ -19,10 +16,8 @@ namespace ProjectEuler
         static void Main(string[] args)
         {
             Stopwatch clock = Stopwatch.StartNew();
-            //long result = 0;
 
             var hamming = new List<long>();
-            //var upperLimit = 1000000000000;
 
             long baseTwo = 1;
             while (baseTwo < upperLimit)
@@ -41,25 +36,17 @@ namespace ProjectEuler
                 baseTwo *= 2;
             }
 
-            //result = hamming.Count;
-
-            //hamming.Sort();
             primes = new List<long>();
             for (var i = 0; i < hamming.Count; i++)
             {
                 if (IsPrime(hamming[i] + 1))
                 {
                     primes.Add(hamming[i] + 1);
-                    //result += i;
                 }
             }
             primes.Sort();
-            //result = primes.Count;
 
-            //for (var d = 1; d < 100; d++)
-            //    if (hamming.Contains(Totient(d))) Console.WriteLine($"{d}\t{Totient(d)}");
-
-            AddPrimeMultiples(1, 2);
+            AddPrimeMultiples(1, 0);
 
             clock.Stop();
             Console.WriteLine("Answer: " + result);
@@ -67,22 +54,19 @@ namespace ProjectEuler
             Console.ReadLine();
         }
 
-        private static void AddPrimeMultiples(BigInteger current, long lastprime)
+        private static void AddPrimeMultiples(BigInteger current, int lastprime)
         {
             if (current > upperLimit) return;
 
-            //Console.WriteLine(current);
-
             result = (result + current) % mask;
 
-            // Somehow check for 2, 3, and 5
+            // Check for 2, 3, and 5
+            var startPrime = lastprime;
+            if (lastprime > 2) startPrime++;
 
-            var primeList = primes.Where(pr => pr > lastprime);
-            if (lastprime <= 5) primeList = primes.Where(pr => pr >= lastprime);
-
-            foreach (var p in primeList)
+            for (var i = startPrime; i < primes.Count() && current * primes[i] <= upperLimit; i++)
             {
-                AddPrimeMultiples(current * p, p);
+                AddPrimeMultiples(current * primes[i], i);
             }
         }
 
@@ -111,31 +95,6 @@ namespace ProjectEuler
             }
 
             return true;
-        }
-
-        private static int Totient(int number)
-        {
-            if (IsPrime(number)) return number - 1;
-
-            double product = 1;
-
-            int holdValue = number;
-            int index = 2;
-            while (holdValue > 1)
-            {
-                while (!IsPrime(index)) index++;
-
-                if (holdValue % index == 0)
-                {
-                    product *= (1.0 - (1.0 / index));
-                }
-
-                while (holdValue % index == 0) holdValue /= index;
-
-                index++;
-            }
-
-            return Convert.ToInt32(product * number);
         }
     }
 }
