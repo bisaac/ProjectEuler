@@ -7,8 +7,11 @@ namespace ProjectEuler
 {
     class Program
     {
-        private static long upperLimit = 100; //1000000000000;
-        private static long result = 0;
+        // S(1000000)    = 2236471777 (mod 2^32)
+        // S(1000000000) = 964002218 (mod 2^32)
+
+        private static long upperLimit = 1000000000000;
+        private static uint result = 0;
         private static List<long> primes;
 
         static void Main(string[] args)
@@ -42,16 +45,17 @@ namespace ProjectEuler
             primes = new List<long>();
             for (var i = 0; i < hamming.Count; i++)
             {
-                if (IsPrime(i + 1))
+                if (IsPrime(hamming[i] + 1))
                 {
-                    primes.Add(i + 1);
+                    primes.Add(hamming[i] + 1);
                     //result += i;
                 }
             }
+            primes.Sort();
             //result = primes.Count;
 
-            for (var d = 1; d < 100; d++)
-                if (hamming.Contains(Totient(d))) Console.WriteLine($"\t{d}");
+            //for (var d = 1; d < 100; d++)
+            //    if (hamming.Contains(Totient(d))) Console.WriteLine($"{d}\t{Totient(d)}");
 
             AddPrimeMultiples(1, 2);
 
@@ -63,13 +67,18 @@ namespace ProjectEuler
 
         private static void AddPrimeMultiples(long current, long lastprime)
         {
-            if (current >= upperLimit) return;
+            if (current > upperLimit) return;
 
-            Console.WriteLine(current);
+            //Console.WriteLine(current);
 
-            result += current;
+            result += (uint)current;
 
-            foreach (var p in primes.Where(pr => pr >= lastprime))
+            // Somehow check for 2, 3, and 5
+
+            var primeList = primes.Where(pr => pr > lastprime);
+            if (lastprime <= 5) primeList = primes.Where(pr => pr >= lastprime);
+
+            foreach (var p in primeList)
             {
                 AddPrimeMultiples(current * p, p);
             }
