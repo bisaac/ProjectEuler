@@ -125,7 +125,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Permutations", "Permutation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE601", "PE601\PE601.csproj", "{03C56099-B874-443D-8356-26DC2FB10389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE516", "PE516\PE516.csproj", "{EE716AB2-51C9-40C1-9B71-3276E3C51595}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE516", "PE516\PE516.csproj", "{EE716AB2-51C9-40C1-9B71-3276E3C51595}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE491", "PE491\PE491.csproj", "{A1CFCDA7-F9AE-40AC-9F03-740B76EC0B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -381,6 +383,10 @@ Global
 		{EE716AB2-51C9-40C1-9B71-3276E3C51595}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE716AB2-51C9-40C1-9B71-3276E3C51595}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE716AB2-51C9-40C1-9B71-3276E3C51595}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CFCDA7-F9AE-40AC-9F03-740B76EC0B56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CFCDA7-F9AE-40AC-9F03-740B76EC0B56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CFCDA7-F9AE-40AC-9F03-740B76EC0B56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CFCDA7-F9AE-40AC-9F03-740B76EC0B56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
