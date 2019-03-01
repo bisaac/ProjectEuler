@@ -9,37 +9,33 @@ namespace ProjectEuler
         static void Main(string[] args)
         {
             Stopwatch clock = Stopwatch.StartNew();
-            float result = 0;
+            double result = 0;
 
-            var totalPlates = 0;
-            var totalWins = 0;
+            int plates = 1000;
 
-            var previous = new List<int>();
-            var plateMaker = new Random();
+            double probZero = 1.0 / plates;
+            double prob500 = 1.0 / plates;
 
-            for (var i = 0; i < 100000000; i++)
+            double[] no500 = new double[501];
+            double[] seen500 = new double[501];
+            no500[500] = 0.0;
+            seen500[500] = 0.0;
+
+            for (var seen = 499; seen >= 0; seen--)
             {
-                var plates = 0;
-                previous.Clear();
-                var found = false;
+                double numUnseen = plates - 2.0 * seen - 2;
+                double probUnseen = numUnseen / plates;
 
-                do
-                {
-                    var nextPlate = plateMaker.Next(1000);
-                    plates += 1;
-                    found = previous.Contains(1000 - nextPlate);
-                    if (!previous.Contains(nextPlate)) previous.Add(nextPlate);
-                } while (!found);
+                double probSeen = (double)seen / plates;
 
-                totalPlates += plates;
-                totalWins++;
-
-                Console.WriteLine((float)totalPlates / totalWins);
+                seen500[seen] = (1 + probUnseen * seen500[seen + 1]                          ) / (1 - (probZero + probSeen));
+                no500[seen]   = (1 + probUnseen * no500[seen + 1]   + prob500 * seen500[seen]) / (1 - (probZero + probSeen));
             }
 
+            result = no500[0];
 
             clock.Stop();
-            Console.WriteLine("Answer: " + result);
+            Console.WriteLine($"Answer: {result:###.########}");
             Console.WriteLine("Solution took {0} ms", clock.Elapsed.TotalMilliseconds);
             Console.ReadLine();
         }
