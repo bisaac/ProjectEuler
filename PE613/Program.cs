@@ -13,6 +13,8 @@ namespace ProjectEuler
 
             var oneOver2pi = 1.0 / (2.0 * Math.PI);
 
+            // Integrals of...
+
             var piOver2 = 300 * Math.PI;
             Console.WriteLine(piOver2);
 
@@ -21,6 +23,8 @@ namespace ProjectEuler
 
             var xOver40MinusY = 100 * (Math.PI + 16 * Math.Log(2.0) - 8.0 * Math.Log(5.0) + Math.Atan2(10296.0, 11753.0));
             Console.WriteLine(xOver40MinusY);
+
+            // Put it all together
 
             result = oneOver2pi * (piOver2 + yOver30MinusX + xOver40MinusY) / 600.0;  // divide by area
 
