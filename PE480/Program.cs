@@ -17,12 +17,12 @@ namespace ProjectEuler
 
             // var phrase = "thereisasyetinsufficientdataforameaningfulanswer";
             // var phrase = "aaaaaacdeeeeeeffffghiiiiilmnnnnnorrrssssttttuuwy";
-            var phraseLetters = new char[] { 'a', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's', 't', 'u', 'w', 'y' };
+            // var phraseLetters = new char[] { 'a', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's', 't', 'u', 'w', 'y' };
             //var letterCounts = new int[] { 6, 1, 1, 6, 4, 1, 1, 5, 1, 1, 5, 1, 3, 4, 4, 2, 1, 1 };
-            var letterCounts = new int[] { 5, 1, 1, 6, 4, 1, 1, 5, 1, 1, 5, 1, 3, 4, 4, 2, 1, 1 };
-            //var phrase = "aabbbcd";
-            //var phraseLetters = new char[] { 'a', 'b', 'c', 'd' };
-            //var letterCounts = new int[] { 2, 3, 1, 1 };
+            //var letterCounts = new int[] { 5, 1, 1, 6, 4, 1, 1, 5, 1, 1, 5, 1, 3, 4, 4, 2, 1, 1 };
+            var phrase = "aabbbcd";
+            var phraseLetters = new char[] { 'a', 'b', 'c', 'd' };
+            var letterCounts = new int[] { 2, 3, 1, 1 };
 
             //var inputSet = phrase.ToCharArray();
             //for (var p = 1; p <= phrase.Length; p++)
@@ -50,18 +50,28 @@ namespace ProjectEuler
             //    return;
             //}
 
-            for (var i = 0; i < counts.Length; i++)
+            ////for (var i = 0; i < counts.Length; i++)
+            ////{
+            ////    if (counts[i] != 0)
+            ////    {
+            ////        result++;
+            ////        if (Length > 1)
+            ////        {
+            ////            counts[i]--;
+            ////            FindCountForLength(Length - 1, counts);
+            ////            counts[i]++;
+            ////        }
+            ////    }
+            ////}
+
+            for (var i = 1; i <= 7; i++)
             {
-                if (counts[i] != 0)
-                {
-                    result++;
-                    if (Length > 1)
-                    {
-                        counts[i]--;
-                        FindCountForLength(Length - 1, counts);
-                        counts[i]++;
-                    }
-                }
+                BigInteger subTotal = 0;
+                subTotal = Helpers.GetFactorial(7) / Helpers.GetFactorial(i) / Helpers.GetFactorial(7 - i);
+                for (var d = 0; d < counts.Length; d++)
+                    subTotal /= Helpers.GetFactorial(counts[d]);
+                Console.WriteLine("Length {i}: {subTotal}");
+                result += subTotal;
             }
         }
     }
