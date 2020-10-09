@@ -91,7 +91,7 @@ namespace ProjectEuler
             values = InitValues(max_length);
         }
 
-        public BigInteger[] GetValues(int n)
+        public List<BigInteger> GetValues(int n)
         {
             return values[n];
         }
@@ -159,10 +159,10 @@ namespace ProjectEuler
         }
     }
 
-    public class AlphabetCount
-    {
-        public 
-    }
+    //public class AlphabetCount
+    //{
+    //    public 
+    //}
 
     public class AlphabeticalOrder
     {
@@ -184,7 +184,7 @@ namespace ProjectEuler
             PopulateFactorialTable(max_length);
             //ways_with_prefix_cache = { '' : 0}
 
-            InitializeAlphabets(phrase)
+            InitializeAlphabets(phrase);
         }
 
         internal BigInteger P(string word)
