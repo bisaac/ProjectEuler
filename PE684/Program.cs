@@ -28,27 +28,27 @@ namespace ProjectEuler
 
             Stopwatch clock = Stopwatch.StartNew();
             ulong runningTotal = 0;
-            // BigInteger runningTotal = 0;
 
             for (var i = 2; i <= 90; i++)
             {
                 var r = Fibonacci[i];
-                // var r = (ulong)i;
                 Console.Write($"{i}  {r}");
 
                 var subTotal = SumOfInverseDigits(r);
-                // var subTotal = SumOfInverseDigitsWithoutMod(r);
                 Console.Write($"  {subTotal}");
 
                 runningTotal = (runningTotal + subTotal) % modMask;
-                // runningTotal = (runningTotal + subTotal);
                 Console.WriteLine($"  {runningTotal}");
             }
 
             clock.Stop();
             Console.WriteLine();
             // Console.WriteLine($"??????: 922058210");
-            Console.WriteLine($"??????: 456912437");
+            Console.WriteLine($"Wrong:  456912437");
+            Console.WriteLine($"Wrong:  127536419");
+            Console.WriteLine($"Wrong:  151280325");
+            Console.WriteLine($"Wrong:  922056248");
+
             Console.WriteLine($"Answer: {runningTotal}");
             Console.WriteLine("Solution took {0} ms", clock.Elapsed.TotalMilliseconds);
             Console.ReadLine();
@@ -65,49 +65,23 @@ namespace ProjectEuler
             if (Starting[mod9] > 0)
             {
                 var subTotal2 = (ulong)BigInteger.ModPow(10, div9, modMask);
-                subTotal2 = subTotal2 * Starting[mod9] % modMask;
+                subTotal2 = (subTotal2 * Starting[mod9]) % modMask;
 
                 subTotal = (subTotal + subTotal2) % modMask;
             }
 
-            subTotal = (subTotal - r) % modMask;
-            return subTotal;
-        }
+            subTotal = (subTotal + modMask - (r % modMask)) % modMask;
+            if (subTotal < 0) subTotal += modMask;
 
-        private static BigInteger SumOfInverseDigitsWithoutMod(ulong r)
-        {
-            var mod9 = r % 9;
-            var div9 = r / 9;
-
-            var subTotal = RepUnitWithoutMod(div9);
-            subTotal = (subTotal * 54);
-
-            if (Starting[mod9] > 0)
-            {
-                var subTotal2 = BigInteger.Pow(10, (int)div9);
-                subTotal2 = subTotal2 * Starting[mod9];
-
-                subTotal = (subTotal + subTotal2);
-            }
-
-            subTotal = (subTotal - r);
             return subTotal;
         }
 
         private static ulong RepUnit(ulong n)
         {
             var rUnit = (ulong)BigInteger.ModPow(10, n, modMask);
-            rUnit = (rUnit - 1) % modMask;
+            rUnit = (rUnit + modMask - 1) % modMask;
+            if (rUnit < 0) rUnit += modMask;
             rUnit = (rUnit / 9) % modMask;
-
-            return rUnit;
-        }
-
-        private static BigInteger RepUnitWithoutMod(ulong n)
-        {
-            var rUnit = BigInteger.Pow(10, (int)n);
-            rUnit = (rUnit - 1);
-            rUnit = (rUnit / 9);
 
             return rUnit;
         }
