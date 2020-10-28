@@ -14,7 +14,8 @@ namespace ProjectEuler
 
         static void Main(string[] args)
         {
-            Console.WriteLine($"S(20): {SumOfInverseDigits(20)}");
+            Console.WriteLine($"S(20) =    1074 : {SumOfInverseDigits(20)}");
+            Console.WriteLine($"S(49) = 1999945 : {SumOfInverseDigits(49)}");
             Console.WriteLine();
 
             for (var i = 2; i <= 90; i++)
@@ -28,17 +29,18 @@ namespace ProjectEuler
 
             Stopwatch clock = Stopwatch.StartNew();
             ulong runningTotal = 0;
+            ulong runningTotal2 = 0;
 
-            for (var i = 2; i <= 90; i++)
+            for (var i = 2; i <= 11; i++)
             {
                 var r = Fibonacci[i];
-                Console.Write($"{i}  {r}");
+                Console.Write($"{i} {r}");
 
                 var subTotal = SumOfInverseDigits(r);
-                Console.Write($"  {subTotal}");
+                Console.Write($" {subTotal}");
 
                 runningTotal = (runningTotal + subTotal) % modMask;
-                Console.WriteLine($"  {runningTotal}");
+                Console.WriteLine($" {runningTotal}");
             }
 
             clock.Stop();
@@ -79,9 +81,12 @@ namespace ProjectEuler
         private static ulong RepUnit(ulong n)
         {
             var rUnit = (ulong)BigInteger.ModPow(10, n, modMask);
-            rUnit = (rUnit + modMask - 1) % modMask;
-            if (rUnit < 0) rUnit += modMask;
-            rUnit = (rUnit / 9) % modMask;
+            //rUnit = (rUnit + modMask - 1) % modMask;
+            //if (rUnit < 0) rUnit += modMask;
+            //rUnit = (rUnit / 9) % modMask;
+
+            rUnit -= 1;
+            rUnit /= 9;
 
             return rUnit;
         }
