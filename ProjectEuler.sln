@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE206", "PE206\PE206.csproj", "{ABF8A12C-743F-4D9A-812B-2318CE7B774E}"
 EndProject
@@ -141,7 +141,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE684", "PE684\PE684.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE700", "PE700\PE700.csproj", "{C6DBDB13-F60F-48BF-880B-C5378105E7C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE719", "PE719\PE719.csproj", "{06A49779-6371-44EF-92C2-9A756C7F66EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PE719", "PE719\PE719.csproj", "{06A49779-6371-44EF-92C2-9A756C7F66EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PE751", "PE751\PE751.csproj", "{BC11F36F-94BB-410B-B175-3AF5EA71F6EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -429,6 +431,10 @@ Global
 		{06A49779-6371-44EF-92C2-9A756C7F66EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06A49779-6371-44EF-92C2-9A756C7F66EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A49779-6371-44EF-92C2-9A756C7F66EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC11F36F-94BB-410B-B175-3AF5EA71F6EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC11F36F-94BB-410B-B175-3AF5EA71F6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC11F36F-94BB-410B-B175-3AF5EA71F6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC11F36F-94BB-410B-B175-3AF5EA71F6EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
